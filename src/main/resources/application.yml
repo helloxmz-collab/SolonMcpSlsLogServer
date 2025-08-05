@@ -1,0 +1,61 @@
+#server.servlet.context-path: "/demo"
+server:
+  port: 9080
+
+spring:
+  application:
+    name: sls-mcp-server
+  datasource:
+    name: anker-druid-ds
+    url: jdbc:mysql://172.16.23.37:3320/epaas_omsuat2db?serverTimezone=UTC&allowMultiQueries=true&zeroDateTimeBehavior=round
+    username: 1234
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 10
+      max-active: 60
+      min-idle: 10
+      max-wait: 60000
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  type-aliases-package: com.anker.sls.model
+  configuration:
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+aliyun:
+  sls:
+    access-key-id: 1234    # 替换为您的阿里云AccessKey ID
+    access-key-secret: 1234    # 替换为您的阿里云AccessKey Secret
+    sls-prompts:
+      - keyword: 广告
+        endpoint: cn-beijing.log.aliyuncs.com
+        project: ads-sls
+        logstore: ads-center,ads-api,ads-intelligent,ads-report,ads-spa
+      - keyword: 广告-UAT2
+        endpoint: cn-beijing.log.aliyuncs.com
+        project: ads-center-uat
+        logstore: ads
+      - keyword: 标签
+        endpoint: cn-beijing.log.aliyuncs.com
+        project: tag-project-prod
+        logstore: tag-logstore-prod
+      - keyword: AMDP
+        endpoint: cn-beijing.log.aliyuncs.com
+        project: amdp-project-prod
+        logstore: amdp-logstore-prod
+      - keyword: 目录标签
+        endpoint: cn-beijing.log.aliyuncs.com
+        project: mdtp-project-prod
+        logstore: mdtp-logstore-prod
+      - keyword: 红旗
+        endpoint: cn-beijing.log.aliyuncs.com
+        project: redflag
+        logstore: redflag-server-prod
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.anker.sls: DEBUG
